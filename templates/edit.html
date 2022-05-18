@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <form class="p-3 shadow" method="POST">
+                {% csrf_token %}
+                 <div class="form-group">
+                    <input class="form-control" name="task" placeholder="Task Name" type="text" value="{{task.name}}">
+                </div>
+                <br>
+                <div class="form-group">
+                    <input class="form-control" name="priority" placeholder="Enter your priority" type="text" value="{{task.priority}}">
+                </div>
+                <br>
+                <div class="form-group">
+                    <input class="form-control" name="date" type="date" value="{{task.date|date:'Y-m-d'}}" required>
+
+                </div>
+                <br>
+                <button class="btn btn-success" type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

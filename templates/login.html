@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="margin-top:200px;">
+    <div class="row">
+
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+              {% if messages %}
+                          {% for msg in messages %}
+                          <div class="alert alert-danger" role="alert">
+                            {{msg}}
+                          </div>
+                          {% endfor %}
+                {% endif %}
+            {% if otp %}
+             <form class="p-3 shadow" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <h2 style="text-align:center">Verify Your Email</h2><br>
+                    <input name="user" type="hidden" value="{{user.username}}">
+                    <div class="input-group mt-3 mb-3">
+                        <span class="input-group-text" id="basic-addon1">OTP</span>
+                        <input aria-describedby="basic-addon1" aria-label="OTP" class="form-control" name='otp'
+                               placeholder="Enter Your OTP" type="text">
+                    </div>
+                </div>
+                <br>
+
+                 <div class="form-grounp">
+                    <div class="form-group" style="text-align: center">
+                    <div class="col-md-12">
+                        <input class="btn btn-success" type="submit" value="Submit">
+                    </div>
+                    </div>
+                    <small class="float-right text-muted"><i><a class="text-dark" href="#" onclick="reSendotp('{{user.username}}', 'resend-otp-text')"><i id="resend-otp-text">Resend</i> OTP</a></small>
+
+                </div>
+
+            </form>
+            {% else %}
+            <form class="p-3 shadow" method="POST">
+                <h2 style="text-align:center">Login</h2><br>
+                {% csrf_token %}
+                <div class="form-group">
+                    <input class="form-control" name="username" autocomplete="off" placeholder="Enter Username" type="text">
+                </div>
+                <br>
+                <div class="form-group">
+                    <input  class="form-control" name="password" autocomplete="off" placeholder="Enter Password" type="password">
+                </div>
+                <br>
+
+                <div class="form-group" style="text-align: center">
+                    <div class="col-md-12">
+                        <input class="btn btn-success" type="submit" value="Submit">
+                    </div>
+                </div>
+
+            </form>
+            <div class="text-center">
+                <p class="mt-3">Not a member? <a href="{% url 'register' %}">Register</a></p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
