@@ -30,7 +30,7 @@ def login(request):
         password = request.POST['password']
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
+            auth.login(request, user)
             return redirect('/todo/')
         elif not User.objects.filter(username=username).exists():
             messages.error(request,
